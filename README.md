@@ -48,3 +48,5 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
 </ol>
 
 <h2>⚙️ Proses berjalan</h2>
+
+https://github.com/user-attachments/assets/4bdc357a-4a8e-4bf3-b11e-4466798b9681
