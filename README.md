@@ -46,3 +46,5 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
   <li></li>
   <li></li>
 </ol>
+
+<h2>⚙️ Proses berjalan</h2>
