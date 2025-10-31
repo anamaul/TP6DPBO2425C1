@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Logic implements ActionListener, KeyListener {
     int frameWidth = 360;
-    int frameHeight = 640;
+    int frameHeight = 640; // Batas bawah adalah 640
 
     int playerStartPosX = frameWidth/2;
     int playerStartPosY = frameHeight/2;
@@ -28,26 +28,20 @@ public class Logic implements ActionListener, KeyListener {
     Image upperPipeImage;
     ArrayList<Pipe> pipes;
 
-    Image groundImage;
-
     Timer gameLoop;
     Timer pipesCooldown;
     int gravity = 1;
 
     int pipeVelocityX = -2;
 
-    // Tambahkan variabel game over
     boolean gameOver = false;
 
-    // Variabel untuk ground
-    int groundHeight = 100;
-    int groundY;
+    // Variabel ground dan groundY Dihapus
 
-    // Variabel untuk skor
     int score = 0;
 
     public Logic(){
-        groundY = frameHeight - groundHeight;
+        // groundY = frameHeight - groundHeight; // Dihapus
 
         birdImage = new ImageIcon(getClass().getResource("assets/bird.png")).getImage();
         player = new Player(playerStartPosX, playerStartPosY, playerWidth, playerHeight, birdImage);
@@ -55,8 +49,6 @@ public class Logic implements ActionListener, KeyListener {
         lowerPipeImage = new ImageIcon(getClass().getResource("assets/lowerPipe.png")).getImage();
         upperPipeImage = new ImageIcon(getClass().getResource("assets/upperPipe.png")).getImage();
         pipes = new ArrayList<Pipe>();
-
-        groundImage = new ImageIcon(getClass().getResource("assets/ground.png")).getImage();
 
         pipesCooldown = new Timer(1500, new ActionListener() {
             @Override
@@ -74,16 +66,14 @@ public class Logic implements ActionListener, KeyListener {
         return score;
     }
 
-    // Metode untuk restart game
     public void restartGame() {
         player.setPosY(playerStartPosY);
         player.setPosX(playerStartPosX);
         player.setVelocityY(0);
         pipes.clear();
         gameOver = false;
-        score = 0; // Reset skor
+        score = 0;
 
-        // Update JLabel skor ke 0 setelah reset
         if (view != null) {
             view.updateScoreLabel(score);
         }
@@ -112,18 +102,12 @@ public class Logic implements ActionListener, KeyListener {
         return gameOver;
     }
 
-    public Image getGroundImage()
-    {
-        return groundImage;
-    }
+    // Getter ground Dihapus
+    // public Image getGroundImage() { return groundImage; }
+    // public int getGroundY() { return groundY; }
 
-    public int getGroundY()
-    {
-        return groundY;
-    }
-
-    public void placePipes(){//untuk menempatkan pipanya
-        int randomPosY = (int) (pipeStartPosY - pipeHeight / 4 - Math.random() * (pipeHeight / 2));//random
+    public void placePipes(){
+        int randomPosY = (int) (pipeStartPosY - pipeHeight / 4 - Math.random() * (pipeHeight / 2));
         int openingSpace = frameHeight / 4;
 
         Pipe upperPipe = new Pipe(pipeStartPosX, randomPosY, pipeWidth, pipeHeight, upperPipeImage);
@@ -136,7 +120,15 @@ public class Logic implements ActionListener, KeyListener {
     public void move(){
         player.setVelocityY(player.getVelocityY() + gravity);
         player.setPosY(player.getPosY() + player.getVelocityY());
-        player.setPosY(Math.max(player.getPosY(), 0));
+        player.setPosY(Math.max(player.getPosY(), 0)); // Batas atas
+
+        // ********** KOREKSI 1: Hapus pencegahan jatuh di sini **********
+        // Logika pencegahan jatuh di move() dihilangkan agar collision bisa dideteksi
+        // di actionPerformed saat burung melewati batas.
+        // if (player.getPosY() + player.getHeight() >= frameHeight) {
+        //     player.setPosY(frameHeight - player.getHeight());
+        // }
+        // ***************************************************************
 
         for (int i = 0; i < pipes.size(); i++) {
             Pipe pipe = pipes.get(i);
@@ -182,11 +174,14 @@ public class Logic implements ActionListener, KeyListener {
             }
         }
 
-        // Cek jika player menyentuh ground
-        if (player.getPosY() + player.getHeight() >= groundY) {
+        // ********** KOREKSI 2: Logika Game Over di Batas Bawah **********
+        // Cek jika player menyentuh dasar frame (frameHeight = 640)
+        if (player.getPosY() + player.getHeight() >= frameHeight) {
             gameOver = true;
-            player.setPosY(groundY - player.getHeight());
+            // Tetapkan posisi burung di dasar frame agar tidak menghilang
+            player.setPosY(frameHeight - player.getHeight());
         }
+        // ****************************************************************
 
         // Jika game over, hentikan semua timer
         if (gameOver) {
@@ -203,8 +198,7 @@ public class Logic implements ActionListener, KeyListener {
     public void keyTyped(KeyEvent e){}
 
     public void keyPressed(KeyEvent e){
-        if (e.getKeyCode() == KeyEvent.VK_SPACE){//tekan space untuk lompat
-            // Hanya bisa melompat jika game masih berjalan
+        if (e.getKeyCode() == KeyEvent.VK_SPACE){
             if (!gameOver) {
                 player.setVelocityY(-10);
             }

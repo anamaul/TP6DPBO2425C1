@@ -9,15 +9,23 @@ public class View extends JPanel {
     int width = 360;
     int height = 640;
 
+    private Image backgroundImage;
+
     public View(Logic logic) {
         this.logic = logic;
+        try {
+            // Memuat background.png (ini akan mengisi seluruh layar)
+            backgroundImage = new ImageIcon(getClass().getResource("assets/background.png")).getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Gagal memuat background.png. Menggunakan warna default.");
+        }
         setPreferredSize(new Dimension(width, height));
-        setBackground(Color.cyan);
         setLayout(null); // Gunakan null layout untuk positioning manual
 
         // Inisialisasi JLabel untuk skor
         scoreLabel = new JLabel("0");
-        scoreLabel.setFont(new Font("Monospaced", Font.BOLD, 36));
+        scoreLabel.setFont(new Font("monospaced", Font.BOLD, 36));
         scoreLabel.setForeground(Color.BLACK);
         scoreLabel.setBounds(180, 40, 150, 30); // x, y, width, height
         add(scoreLabel);
@@ -39,6 +47,14 @@ public class View extends JPanel {
     }
 
     public void draw(Graphics g) {
+        // Gambar Background
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, width, height, null);
+        } else {
+            g.setColor(Color.CYAN);
+            g.fillRect(0, 0, width, height);
+        }
+
         // Gambar pipes
         ArrayList<Pipe> pipes = logic.getPipes();
         if (pipes != null){
@@ -48,7 +64,8 @@ public class View extends JPanel {
             }
         }
 
-        // Gambar ground/tanah
+        // Gambar ground/tanah (Kode Dihapus)
+        /*
         Image groundImage = logic.getGroundImage();
         if (groundImage != null) {
             int groundY = logic.getGroundY();
@@ -58,6 +75,7 @@ public class View extends JPanel {
                 g.drawImage(groundImage, i, groundY, null);
             }
         }
+        */
 
         // Gambar player di atas ground
         Player player = logic.getPlayer();
@@ -69,10 +87,10 @@ public class View extends JPanel {
         // Tampilkan pesan Game Over
         if (logic.isGameOver()) {
             g.setColor(Color.BLACK);
-            g.setFont(new Font("Monospaced", Font.BOLD, 48));
+            g.setFont(new Font("monospaced", Font.BOLD, 48));
             g.drawString("GAME OVER", width/2 - 140, height/2);
 
-            g.setFont(new Font("Monospaced", Font.PLAIN, 20));
+            g.setFont(new Font("monospaced", Font.PLAIN, 20));
             g.drawString("Score: " + logic.getScore(), width/2 - 60, height/2 + 50);
             g.drawString("Press R to restart", width/2 - 100, height/2 + 80);
             g.drawString("Press E to exit", width/2 - 90, height/2 + 110);

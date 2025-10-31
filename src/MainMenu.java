@@ -19,14 +19,14 @@ public class MainMenu extends JFrame {
 
         // Label judul
         JLabel titleLabel = new JLabel("FLAPPY BIRD", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
+        titleLabel.setFont(new Font("monospaced", Font.BOLD, 24));
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setBounds(50, 150, 260, 60);
         panel.add(titleLabel);
 
         // Tombol Play
         JButton playButton = new JButton("PLAY GAME");
-        playButton.setFont(new Font("Monospaced", Font.BOLD, 24));
+        playButton.setFont(new Font("monospaced", Font.BOLD, 24));
         playButton.setBounds(80, 300, 200, 60);
         playButton.setFocusPainted(false);
         playButton.setBackground(new Color(76, 175, 80));
@@ -47,7 +47,7 @@ public class MainMenu extends JFrame {
 
         // Tombol Exit
         JButton exitButton = new JButton("EXIT");
-        exitButton.setFont(new Font("Monospaced", Font.BOLD, 24));
+        exitButton.setFont(new Font("monospaced", Font.BOLD, 24));
         exitButton.setBounds(80, 380, 200, 60);
         exitButton.setFocusPainted(false);
         exitButton.setBackground(new Color(244, 67, 54));
