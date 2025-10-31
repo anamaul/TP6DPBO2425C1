@@ -9,7 +9,7 @@ Implementasi sederhana dari game Flappy Bird yang dibuat menggunakan Java dan li
 <h2>🎮 Tampilan GUI Program</h2>
 Tampilan antarmuka aplikasi Flappy Bird:<br>
 
-<img width="339" height="628" alt="image" src="https://github.com/user-attachments/assets/01447a3e-8a7d-485d-9833-75231b6ed750" />
+<img width="344" height="631" alt="image" src="https://github.com/user-attachments/assets/0eba8ee9-d661-47a4-8e2d-323b36fa21cc" />
 
 <h2>🧩 Desain Program</h2>
 
