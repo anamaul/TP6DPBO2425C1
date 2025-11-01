@@ -31,39 +31,83 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
 * Restart dan Exit: Setelah Game Over, pemain dapat Restart game dengan tombol R atau Exit program dengan tombol E.<br>
 
 
-<h2>🧭 Penjelasan Alur Program</h2>
-<ol>
-  <li>
-    App.Java menjalankan MainMenu.java
-  </li>
-  <li>
-    Menu Utama : Terdapat judul game yaitu "Flappy Bird", "Play Game", dan "Exit", Play game akan memulai permainannya dan Exit akan keluar dari game.
-  </li>
-  <li>
-    Memulai Game: startGame() membuat objek Logic dan View, lalu menghubungkannya. Timer gameLoop dengan rate 60 FPS untuk menggerakkan game. Timer pipesCooldown untuk memanggil placePipes(), secara berkala(1.5 detik)
-  </li>
-  <li>
-    Loop Game(Logic.actionPerformed): Setiap tick, metode $\text{move()}$ dipanggil untuk:
-    <li>
-      Menambahkan gravitasi ke velocityY pemain dan memperbarui posY pemain.
-    </li>
-  <li>
-    Menggerakkan semua pipa ke kiri (mengurangi posX)
-  </li>
-  <li>
-    Setiap pipa dicek untuk:
-    <li/>
-    <li>
-      Tabrakan dengan burung(collision()). Jika tabrakan maka GameOver jadi true.
-    <li/>
-      <li>
-        Penghitungan Skor: Jika pipa atas telah melewati posisi posX burung dan passed masih false, skor bertambah, dan passed diatur menjadi true untuk pipa atas dan bawah pasangannya.
-      </li>
-  </li>
-  </li>
-  <li></li>
-  <li></li>
-</ol>
+<h2>🧭 Penjelasan Alur Program Flappy Bird (Java Swing)</h2>
+    <hr>
+
+    <ol>
+        <li>
+            <strong>Inisialisasi Aplikasi</strong>
+            <ul>
+                <li><code>App.java</code> menjalankan tampilan utama, yaitu <code>MainMenu.java</code>.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Menu Utama</strong>
+            <ul>
+                <li>Tampilan awal menyajikan judul game "Flappy Bird", tombol "PLAY GAME", dan tombol "EXIT".</li>
+                <li>Pilihan "EXIT" akan keluar dari program.</li>
+                <li>Pilihan "PLAY GAME" akan menutup menu dan memulai permainan dengan memanggil <code>startGame()</code>.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Memulai Game (<code>startGame()</code>)</strong>
+            <ul>
+                <li><code>startGame()</code> membuat objek <code>Logic</code> (logika game) dan <code>View</code> (tampilan), lalu menghubungkannya.</li>
+                <li><strong>Timer <code>gameLoop</code></strong> dimulai (60 FPS) untuk menggerakkan dan memperbarui fisika game secara konstan.</li>
+                <li><strong>Timer <code>pipesCooldown</code></strong> dimulai (setiap 1.5 detik) untuk memanggil <code>placePipes()</code>, yang berfungsi untuk menghasilkan pasangan pipa baru secara berkala.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Loop Game dan Fisika (<code>Logic.actionPerformed</code>)</strong>
+            <p>Metode ini dieksekusi di setiap siklus <code>gameLoop</code> untuk memperbarui state game:</p>
+            <ul>
+                <li><strong>Pergerakan Pemain (<code>move()</code>):</strong>
+                    <ul>
+                        <li>Menambahkan **gravitasi** ke <code>velocityY</code> pemain dan memperbarui <code>posY</code> pemain.</li>
+                        <li>Memastikan burung tidak terbang melewati batas atas *frame*.</li>
+                    </ul>
+                </li>
+                <li><strong>Pergerakan Pipa:</strong>
+                    <ul>
+                        <li>Menggerakkan semua pipa ke kiri (mengurangi <code>posX</code> pipa).</li>
+                    </ul>
+                </li>
+                <li><strong>Deteksi dan Skor:</strong>
+                    <ul>
+                        <li><strong>Tabrakan dengan Pipa:</strong> Setiap pipa dicek tabrakan dengan burung (<code>collision()</code>). Jika terjadi tabrakan, variabel <strong><code>gameOver</code></strong> diatur menjadi <code>true</code>.</li>
+                        <li><strong>Penghitungan Skor:</strong> Jika pipa atas telah melewati posisi <code>posX</code> burung dan status <code>passed</code> masih <code>false</code>, skor bertambah, dan <code>passed</code> diatur menjadi <code>true</code> untuk pasangan pipa tersebut.</li>
+                    </ul>
+                </li>
+                <li><strong>Deteksi Jatuh (Game Over):</strong>
+                    <ul>
+                        <li>Cek tabrakan dengan **dasar *frame*** (batas bawah tinggi 640). Jika burung menyentuh batas ini, <code>gameOver</code> menjadi <code>true</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Penghentian:</strong> Jika <code>gameOver</code> bernilai <code>true</code>, kedua timer (<code>gameLoop</code> dan <code>pipesCooldown</code>) dihentikan.</li>
+                <li><strong>Rendering:</strong> <code>View.repaint()</code> dipanggil untuk menggambar ulang layar.</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Penggambaran (<code>View.draw</code>)</strong>
+            <ul>
+                <li>Metode ini menggambar ulang seluruh tampilan: *background*, pipa, dan objek pemain (burung) di posisi terbarunya.</li>
+                <li>Jika <code>gameOver</code>, maka akan ditampilkan pesan **"GAME OVER"**, skor akhir, dan instruksi selanjutnya: "Press R to restart" dan "Press E to exit".</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Input Pemain (<code>Logic.keyPressed</code>)</strong>
+            <ul>
+                <li>Menekan tombol <strong>Spasi (SPACE)</strong> akan membuat burung melompat, hanya jika <code>gameOver</code> adalah <code>false</code>.</li>
+                <li>Menekan tombol <strong>R</strong> saat <code>gameOver</code> akan me-restart permainan.</li>
+                <li>Menekan tombol <strong>E</strong> saat <code>gameOver</code> akan keluar dari program (exit).</li>
+            </ul>
+        </li>
+    </ol>
 
 <h2>⚙️ Proses berjalan</h2>
 
