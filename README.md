@@ -32,8 +32,7 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
 
 
 <h2>🧭 Penjelasan Alur Program Flappy Bird (Java Swing)</h2>
-    <hr>
-
+<hr>
     <ol>
         <li>
             <strong>Inisialisasi Aplikasi</strong>
@@ -41,7 +40,6 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
                 <li><code>App.java</code> menjalankan tampilan utama, yaitu <code>MainMenu.java</code>.</li>
             </ul>
         </li>
-
         <li>
             <strong>Menu Utama</strong>
             <ul>
@@ -50,7 +48,6 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
                 <li>Pilihan "PLAY GAME" akan menutup menu dan memulai permainan dengan memanggil <code>startGame()</code>.</li>
             </ul>
         </li>
-
         <li>
             <strong>Memulai Game (<code>startGame()</code>)</strong>
             <ul>
@@ -59,7 +56,6 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
                 <li><strong>Timer <code>pipesCooldown</code></strong> dimulai (setiap 1.5 detik) untuk memanggil <code>placePipes()</code>, yang berfungsi untuk menghasilkan pasangan pipa baru secara berkala.</li>
             </ul>
         </li>
-
         <li>
             <strong>Loop Game dan Fisika (<code>Logic.actionPerformed</code>)</strong>
             <p>Metode ini dieksekusi di setiap siklus <code>gameLoop</code> untuk memperbarui state game:</p>
@@ -90,7 +86,6 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
                 <li><strong>Rendering:</strong> <code>View.repaint()</code> dipanggil untuk menggambar ulang layar.</li>
             </ul>
         </li>
-
         <li>
             <strong>Penggambaran (<code>View.draw</code>)</strong>
             <ul>
@@ -98,7 +93,6 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
                 <li>Jika <code>gameOver</code>, maka akan ditampilkan pesan **"GAME OVER"**, skor akhir, dan instruksi selanjutnya: "Press R to restart" dan "Press E to exit".</li>
             </ul>
         </li>
-
         <li>
             <strong>Input Pemain (<code>Logic.keyPressed</code>)</strong>
             <ul>
