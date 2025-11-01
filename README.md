@@ -40,9 +40,27 @@ Tampilan antarmuka aplikasi Flappy Bird:<br>
     Menu Utama : Terdapat judul game yaitu "Flappy Bird", "Play Game", dan "Exit", Play game akan memulai permainannya dan Exit akan keluar dari game.
   </li>
   <li>
-    
+    Memulai Game: startGame() membuat objek Logic dan View, lalu menghubungkannya. Timer gameLoop dengan rate 60 FPS untuk menggerakkan game. Timer pipesCooldown untuk memanggil placePipes(), secara berkala(1.5 detik)
   </li>
-  <li></li>
+  <li>
+    Loop Game(Logic.actionPerformed): Setiap tick, metode $\text{move()}$ dipanggil untuk:
+    <li>
+      Menambahkan gravitasi ke velocityY pemain dan memperbarui posY pemain.
+    </li>
+  <li>
+    Menggerakkan semua pipa ke kiri (mengurangi posX)
+  </li>
+  <li>
+    Setiap pipa dicek untuk:
+    <li/>
+    <li>
+      Tabrakan dengan burung(collision()). Jika tabrakan maka GameOver jadi true.
+    <li/>
+      <li>
+        Penghitungan Skor: Jika pipa atas telah melewati posisi posX burung dan passed masih false, skor bertambah, dan passed diatur menjadi true untuk pipa atas dan bawah pasangannya.
+      </li>
+  </li>
+  </li>
   <li></li>
   <li></li>
 </ol>
